@@ -1,43 +1,75 @@
 import streamlit as st
 
-# 1. Mengatur judul halaman di browser
+# 1. Judul halaman di browser
 st.set_page_config(page_title="Happy Birthday Sayang!", page_icon="❤️")
 
-# 2. Judul Utama
-st.title("🎂 Happy Birthday, Sayang! 🎂")
+# 2. Mengatur sistem halaman (Session State)
+if "halaman" not in st.session_state:
+    st.session_state.halaman = 1
 
-# 3. Bagian Pemutar Musik
-st.write("🎵 Hidupkan musiknya dulu ya... (Mirrors - Justin Timberlake)")
-try:
-    audio_file = open("mirrors.mp3", "rb")
-    audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format="audio/mp3", autoplay=True)
-except FileNotFoundError:
-    st.warning("Lagu mirrors.mp3 belum diupload ke GitHub!")
+# --- SLIDE 1: INTRO & MUSIK ---
+if st.session_state.halaman == 1:
+    st.title("🎂 Selamat Datang, Sayang! 🎂")
+    st.write("Sebelum kita mulai, yuk hidupkan dulu musiknya biar lebih romantis...")
+    
+    # Pemutar Musik
+    try:
+        audio_file = open("mirrors.mp3", "rb")
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format="audio/mp3", autoplay=True)
+    except FileNotFoundError:
+        st.warning("Lagu mirrors.mp3 belum diupload ke GitHub!")
+        
+    st.write("") # Jarak kosong
+    st.write("Kalau musiknya sudah nyala, klik tombol di bawah ya! 👇")
+    
+    if st.button("Lanjut ke Kejutan ✨"):
+        st.session_state.halaman = 2
+        st.rerun()
 
-# 4. Bagian Foto (Menggunakan file lokal dari GitHub)
-try:
-    # Membaca file foto yang sudah kamu upload ke GitHub kamu
-    foto_pacar = open("foto_pacar.jpg", "rb")
-    st.image(foto_pacar, caption="Kamu adalah prioritasku 🥰", use_container_width=True)
-except FileNotFoundError:
-    st.warning("Foto foto_pacar.jpg belum diupload ke GitHub atau salah nama file!")
+# --- SLIDE 2: SURAT & PESAN ASLI DARI KAMU ---
+elif st.session_state.halaman == 2:
+    st.title("💌 Sepucuk Surat Buat Kamu...")
+    
+    # Ini pesan asli darimu yang sudah dimasukkan ke dalam aplikasi
+    st.write("""
+    ### SELAMAT ULANG TAHUN YANG KE 20 AYANGSSS 🎉🎊🎉🎊
+    
+    Anjayy udah kepala 2 nih yee menyusull lakinyee 😁😁. 
+    
+    Saran dari aku yang udah berada di kepala 2 *almost 1 year* adalah perbanyak olahraga, makan yg sehat biar ga gampang masuk angin dan sakit pinggang (penyakit orang berumur) 🫠. 
+    
+    Doa nyaa semoga di umur yang ke 20 ini semoga menjadi pribadi yang lebih baik dari yang sebelumnyaa dan semoga banyak cita cita kamu yang sebelumnya mungkin masih tertunda sekarang bisa tercapai di usia yang ke 20 tahun ini 🤲🏻. 
+    
+    Semoga berkah selalu yapss ayangss *i lovee youuuuuuuu so muchhhh* 😘😘😘😘
+    """)
+    
+    st.write("") # Jarak kosong
+    st.write("Aku punya satu hal lagi buat kamu... 👇")
+    
+    if st.button("Lihat Kejutan Selanjutnya 📸"):
+        st.session_state.halaman = 3
+        st.rerun()
 
-# 5. Surat Ucapan Ulang Tahun
-st.subheader("Surat Spesial Buat Kamu:")
-st.write("""
-SELAMAT ULANG TAHUN YANG KE 20 AYANGSSS🎊🎉🎊🎉. 
-Anjayy udah kepala 2 nih yee menyusull lakinyee😁😁.
-Saran dari aku yang udah berada di kepala 2 almost 1 year
-adalah perbanyak olahraga makan yg sehat biar ga gampang masuk
-angin dan sakit pinggan(penyakit orang berumur)🫠. 
-Doa nyaa semoga di umur yang ke 20 ini semoga menjadi pribadi yang 
-lebih baik dari yang sebelumnyaa dan semoga banyak cita cita kamu 
-yang sebelumnya mungkin masih tertunda sekarang bisa tercapai di usia
-yang ke 20 tahun ini🤲🏻. Semoga berkah selalu yapss ayangss i lovee youuuuuuuu so muchhhh 😘😘😘😘
-""")
-
-# 6. Tombol Kejutan Interaktif
-if st.button("Klik di sini untuk kejutan! ✨"):
-    st.balloons()
-    st.success("Selamat Ulang Tahun! Tiup lilinnya dan buat permohonan! 🕯️✨")
+# --- SLIDE 3: FOTO & BALON ---
+elif st.session_state.halaman == 3:
+    st.title("📸 My Favorite View!")
+    
+    # Menampilkan Foto
+    try:
+        st.image("foto_pacar.jpg", caption="Kamu adalah prioritasku 🥰", use_container_width=True)
+    except Exception:
+        st.warning("Gagal memuat gambar. Pastikan file foto_pacar.jpg sudah ada di GitHub!")
+        
+    st.write("") # Jarak kosong
+    st.write("Sekali lagi, Selamat Ulang Tahun Sayang! 🎉")
+    
+    # Tombol untuk memunculkan efek balon lagi jika mau
+    if st.button("Rayakan! 🎈"):
+        st.balloons()
+        st.success("Semoga semua permohonanmu dikabulkan ya! 🕯️✨")
+        
+    # Tombol untuk mengulang dari awal slide jika pacarmu mau baca lagi
+    if st.button("Ulangi dari Awal 🔄"):
+        st.session_state.halaman = 1
+        st.rerun()
