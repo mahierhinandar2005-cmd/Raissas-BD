@@ -36,18 +36,17 @@ st.markdown("""
         color: white !important;
     }
     </style>
-""", unsafe_index=True)
+""", unsafe_allow_html=True)
 
 # 2. Pemutar Musik ditaruh di paling atas (Biar terus menyala tanpa putus)
 try:
     audio_file = open("mirrors.mp3", "rb")
     audio_bytes = audio_file.read()
-    # Menggunakan container tersembunyi agar musik berjalan terus di latar belakang
     st.audio(audio_bytes, format="audio/mp3", autoplay=True)
 except FileNotFoundError:
     st.warning("Lagu mirrors.mp3 belum diupload ke GitHub!")
 
-st.markdown("💖✨💖✨💖✨💖✨💖✨💖✨💖")
+st.markdown("<p style='text-align:center; color:#D81B60;'>💖✨💖✨💖✨💖✨💖✨💖✨💖</p>", unsafe_allow_html=True)
 
 # 3. Mengatur sistem halaman (Session State)
 if "halaman" not in st.session_state:
@@ -71,13 +70,13 @@ elif st.session_state.halaman == 2:
     # Kotak pesan dengan bingkai cinta yang cantik
     st.markdown("""
     <div style="background-color: #FFE4E1; padding: 20px; border-radius: 15px; border: 3px dashed #FF1493; margin-bottom: 20px;">
-        <h3 style="margin-top:0;">SELAMAT ULANG TAHUN YANG KE 20 AYANGSSS 🎉🎊🎉🎊</h3>
-        <p>Anjayy udah kepala 2 nih yee menyusull lakinyee 😁😁.</p>
-        <p>Saran dari aku yang udah berada di kepala 2 <i>almost 1 year</i> adalah perbanyak olahraga, makan yg sehat biar ga gampang masuk angin dan sakit pinggang (penyakit orang berumur) 🫠.</p>
-        <p>Doa nyaa semoga di umur yang ke 20 ini semoga menjadi pribadi yang lebih baik dari yang sebelumnyaa dan semoga banyak cita cita kamu yang sebelumnya mungkin masih tertunda sekarang bisa tercapai di usia yang ke 20 tahun ini 🤲🏻.</p>
-        <p>Semoga berkah selalu yapss ayangss <b>i lovee youuuuuuuu so muchhhh</b> 😘😘😘😘</p>
+        <h3 style="margin-top:0; color: #D81B60;">SELAMAT ULANG TAHUN YANG KE 20 AYANGSSS 🎉🎊🎉🎊</h3>
+        <p style="color: #4A1525;">Anjayy udah kepala 2 nih yee menyusull lakinyee 😁😁.</p>
+        <p style="color: #4A1525;">Saran dari aku yang udah berada di kepala 2 <i>almost 1 year</i> adalah perbanyak olahraga, makan yg sehat biar ga gampang masuk angin dan sakit pinggang (penyakit orang berumur) 🫠.</p>
+        <p style="color: #4A1525;">Doa nyaa semoga di umur yang ke 20 ini semoga menjadi pribadi yang lebih baik dari yang sebelumnyaa dan semoga banyak cita cita kamu yang sebelumnya mungkin masih tertunda sekarang bisa tercapai di usia yang ke 20 tahun ini 🤲🏻.</p>
+        <p style="color: #4A1525;">Semoga berkah selalu yapss ayangss <b>i lovee youuuuuuuu so muchhhh</b> 😘😘😘😘</p>
     </div>
-    """, unsafe_index=True)
+    """, unsafe_allow_html=True)
     
     if st.button("Lanjut ke Kejutan Terakhir 🥰 👉"):
         st.session_state.halaman = 3
@@ -105,4 +104,4 @@ elif st.session_state.halaman == 3:
         st.session_state.halaman = 1
         st.rerun()
 
-st.markdown("💖✨💖✨💖✨💖✨💖✨💖✨💖")
+st.markdown("<p style='text-align:center; color:#D81B60;'>💖✨💖✨💖✨💖✨💖✨💖✨💖</p>", unsafe_allow_html=True)
